@@ -1,22 +1,32 @@
 import { json, type ActionFunctionArgs } from "@remix-run/node";
-import { z } from "zod";
-const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters" }),
-});
+import { signin } from "~/services/auth.server";
+import { SigninPayload } from "~/types/user";
+import { userSession } from "~/services/sessions.server";
 
-export async function action({ request, context }: ActionFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  const parsedData = loginSchema.safeParse(data);
-  if (!parsedData.success) {
+  const signinPayload = {
+    email: data.email,
+    password: data.password,
+  } as SigninPayload;
+  const signinResult = await signin(signinPayload);
+  if (!signinResult) {
     return json(
-      { success: false, errors: parsedData.error.flatten().fieldErrors },
+      { success: false, errors: { email: ["Invalid email or password"] } },
       { status: 400 }
     );
   }
-  console.log("signin", parsedData.data);
-  return json({ success: true });
+  console.log(signinResult);
+  const session = await userSession(request);
+  session.setUserSession(signinResult.user);
+  console.log(session.getUserSession());
+  return json(
+    { success: true, user: signinResult.user },
+    {
+      headers: {
+        "Set-Cookie": await session.commitUserSession(),
+      },
+    }
+  );
 }
