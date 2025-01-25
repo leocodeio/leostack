@@ -5,9 +5,18 @@ import { SignupPayload, SigninPayload } from "~/types/user";
 // start ------------------------------ signup ------------------------------
 
 export const signup = async (signupPayload: SignupPayload) => {
-  const { email, password } = signupPayloadSchema.parse(signupPayload);
-  // login to save user
+  const { email, password, confirmPassword } = signupPayloadSchema.parse(
+    signupPayload
+  );
 
+  if (password !== confirmPassword) {
+    return new Error("password and confirm password do not match");
+  }
+
+  // signup to save user
+  // create user in database
+  // create session
+  
   return {
     user: {
       id: "1",

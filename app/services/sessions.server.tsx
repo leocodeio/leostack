@@ -91,6 +91,7 @@ export async function userSession(request: Request) {
   return {
     getUserSession: () => session.get("user") || null,
     setUserSession: (user: User) => session.set("user", user),
+    clearUserSession: () => userSessionStorage.destroySession(session),
     commitUserSession: () => userSessionStorage.commitSession(session),
   };
 }
