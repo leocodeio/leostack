@@ -1,9 +1,9 @@
 import { signupPayloadSchema } from "~/services/schemas/signup.schema";
 import { signinPayloadSchema } from "~/services/schemas/signin.schema";
 import { SignupPayload, SigninPayload } from "~/types/user";
+import { userSession } from "./sessions.server";
 
 // start ------------------------------ signup ------------------------------
-
 export const signup = async (signupPayload: SignupPayload) => {
   const { email, password, confirmPassword } = signupPayloadSchema.parse(
     signupPayload
@@ -16,7 +16,7 @@ export const signup = async (signupPayload: SignupPayload) => {
   // signup to save user
   // create user in database
   // create session
-  
+
   return {
     user: {
       id: "1",
@@ -25,7 +25,6 @@ export const signup = async (signupPayload: SignupPayload) => {
     },
   };
 };
-
 // end ------------------------------ signup ------------------------------
 // start ------------------------------ signin ------------------------------
 
@@ -41,5 +40,4 @@ export const signin = async (signinPayload: SigninPayload) => {
     },
   };
 };
-
 // end ------------------------------ signin ------------------------------
