@@ -1,6 +1,6 @@
 import { createCookieSessionStorage } from "@remix-run/node";
-import { createThemeSessionResolver } from "remix-themes";
 import { jwtDecode } from "jwt-decode";
+import { createThemeSessionResolver } from "remix-themes";
 
 // You can default to 'development' if process.env.NODE_ENV is not set
 const isProduction = process.env.NODE_ENV === "production";
@@ -19,6 +19,30 @@ const themeSessionStorage = createCookieSessionStorage({
 
 export const themeSessionResolver =
   createThemeSessionResolver(themeSessionStorage);
+
+// ------------------------------ theme color session storage ------------------------------
+const themeColorSessionStorage = createCookieSessionStorage({
+  cookie: {
+    name: "themeColor",
+    path: "/",
+    httpOnly: true,
+    sameSite: "lax",
+    secrets: ["s3cr3t"],
+    secure: false,
+  },
+});
+
+export async function getThemeColorSession(request: Request) {
+  const session = await themeColorSessionStorage.getSession(
+    request.headers.get("Cookie")
+  );
+  return {
+    getThemeColor: () => session.get("themeColor") || "Zinc",
+    setThemeColor: (color: string) => session.set("themeColor", color),
+    commitThemeColorSession: () =>
+      themeColorSessionStorage.commitSession(session),
+  };
+}
 
 // ------------------------------ i18n session storage ------------------------------
 const i18nSessionStorage = createCookieSessionStorage({
