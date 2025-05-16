@@ -20,9 +20,38 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 import { loader as signinLoader } from "@/routes/loader+/auth+/signin";
 import { action as signinAction } from "@/routes/action+/auth+/signin.action";
+import { ValidationError } from "~/utils/data-inject-error";
+import { Theme } from "remix-themes";
+import { ThemeColors } from "~/types/theme-types";
+import { LoaderFunctionArgs } from "@remix-run/node";
 
-export const loader = signinLoader;
+// export const loader = signinLoader;
 export const action = signinAction;
+import {
+  getI18nSession,
+  getThemeColorSession,
+  themeSessionResolver,
+} from "../../services/sessions.server";
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { getTheme } = await themeSessionResolver(request);
+  const { getThemeColor } = await getThemeColorSession(request);
+  const i18nSession = await getI18nSession(request);
+  const locale = i18nSession.getLocale();
+  const theme = getTheme();
+  const themeColor = getThemeColor();
+  // console.log(theme, themeColor);
+  if (!theme || !themeColor) {
+    throw new ValidationError(
+      "Not found",
+      {},
+      locale,
+      "light" as Theme,
+      "Zinc",
+      404
+    );
+  }
+  throw new ValidationError("Not found", {}, locale, theme, themeColor, 401);
+};
 
 export default function Signin() {
   // state
