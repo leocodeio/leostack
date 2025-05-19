@@ -7,11 +7,11 @@ export async function loader({
   request,
 }: LoaderFunctionArgs): Promise<Response | null> {
   // If user is already authenticated, redirect to dashboard
-  const session = await userSession(request);
-  const isAuthenticated = session.isAuthenticated();
-  console.log("debug log 0 - landing.loader.ts", isAuthenticated);
-  if (isAuthenticated) {
-    return redirect("/home");
-  }
+  // const session = await userSession(request);
+  // const isAuthenticated = session.isAuthenticated();
+  // console.log("debug log 0 - landing.loader.ts", isAuthenticated);
+  // if (isAuthenticated) {
+  //   return redirect("/home");
+  // }
   return null;
 }
