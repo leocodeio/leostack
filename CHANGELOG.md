@@ -1,0 +1,20 @@
+# 1.0.0 (2025-05-29)
+
+
+### Features
+
+* **added more common code:** added more common code ([6fca796](https://github.com/leocodeio/leostack/commit/6fca796a019c0599076421a5e3084f3f15461eaf))
+* **better auth implemnted:** better auth implemnted w routing ([c007ee0](https://github.com/leocodeio/leostack/commit/c007ee0f7f5e8524623daad819f50a9f6a5a2a53))
+* **efficient error handling:** efficient error handling ([4e72e87](https://github.com/leocodeio/leostack/commit/4e72e87033ace943230d566ae629d2dd4e312bec))
+* **implemed basic better auth:** implemed basic better auth ([5830260](https://github.com/leocodeio/leostack/commit/5830260ca31a9fbfcb67984571425043e79f3e2d))
+* **mutli theme:** mutli theme ([fcadfa9](https://github.com/leocodeio/leostack/commit/fcadfa9f1f6f7ca0d4a82b3781d3b3f35a1ced1f))
+* **sr:** sr ([2ccbde9](https://github.com/leocodeio/leostack/commit/2ccbde9e39be16b8b0934769b1ba6bc06747138f))
+* **updated code for checks at auth:** updated code for checks at auth ([f7d2dc1](https://github.com/leocodeio/leostack/commit/f7d2dc1061e2f48e7ab21c28b705a3383d46db8e))
+
+
+### Performance Improvements
+
+* **added common side bar:** added common side bar ([f2d5ca8](https://github.com/leocodeio/leostack/commit/f2d5ca8f5cabb284cdcc5d40239a83c9c2303996))
+* **added notation files:** added notation files ([c4c70ea](https://github.com/leocodeio/leostack/commit/c4c70eab6ffef2c98f19df3cd2f408e3f3316f32))
+* **new additions:** new additions ([179af0c](https://github.com/leocodeio/leostack/commit/179af0cb61c1b0e77f1edc06bbf4062fa3c30d7a))
+* **signout imp:** signout imp ([56ea752](https://github.com/leocodeio/leostack/commit/56ea752f7191d07f4408052bc50b1d0d62400abf))
