@@ -15,15 +15,17 @@ import { Form, Link, useActionData, useNavigate } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 // types
-import { SignupPayload, User } from "@/types/user";
-import { ActionResult } from "@/types/action-result";
+import { ORIGIN } from "@/types/action-result";
 
 // hooks
 import { toast } from "@/hooks/use-toast";
 
 // loader and action
 import { loader as signupLoader } from "@/routes/loader+/auth+/signup";
-import { authClient } from "~/server/services/auth/auth-client";
+import {
+  authClient,
+  signupPayloadSchema,
+} from "~/server/services/auth/auth-client";
 export const loader = signupLoader;
 
 export default function Signup() {
@@ -32,7 +34,6 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("participant");
   const [error, setError] = useState<{ type: string; message: string } | null>(
     null
   );
@@ -41,48 +42,61 @@ export default function Signup() {
   const navigate = useNavigate();
 
   // action
-  // useEffect(() => {
-  //   if (actionData?.success) {
-  //     toast({
-  //       title: "Sign",
-  //       description: actionData.message,
-  //       variant: "default",
-  //     });
-  //     navigate("/");
-  //   } else if (actionData?.success === false) {
-  //     if (actionData.origin === "email") {
-  //       setError({ type: "email", message: actionData.message });
-  //     } else if (actionData.origin === "password") {
-  //       setError({ type: "password", message: actionData.message });
-  //     }
-  //   }
-  // }, [actionData, navigate]);
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await authClient.signUp.email(
-        {
-          email,
-          password,
-          name,
+      const payload = signupPayloadSchema.safeParse({
+        email,
+        password,
+        name,
+        confirmPassword,
+      });
+      if (!payload.success) {
+        setError({
+          type: payload.error.issues[0].path[0] as ORIGIN,
+          message: payload.error.issues[1].message,
+        });
+        toast({
+          title: "Error",
+          description: payload.error.issues[0].message,
+          variant: "destructive",
+        });
+        return;
+      }
+      await authClient.signUp.email(payload.data, {
+        onSuccess: () => {
+          toast({
+            title: "Signup",
+            description: "Signup successful",
+            variant: "default",
+          });
+          navigate("/");
         },
-        {
-          onSuccess: () => {
-            toast({
-              title: "Signup",
-              description: "Signup successful",
-              variant: "default",
+        onError: (ctx) => {
+          console.log(ctx);
+          if (ctx.response.status === 422) {
+            setError({
+              type: "email",
+              message: "user already exists",
             });
-            navigate("/");
-          },
-          onError: (ctx) => {
+            toast({
+              title: "Error",
+              description: "email already exists",
+              variant: "destructive",
+            });
+          } else {
             setError({
               type: "error",
-              message: ctx.error.message,
+              message: "something went wrong",
             });
-          },
-        }
-      );
+            toast({
+              title: "Error",
+              description: "something went wrong",
+              variant: "destructive",
+            });
+          }
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -102,11 +116,6 @@ export default function Signup() {
           <Form onSubmit={handleSignUp}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <input
-                  type="hidden"
-                  name="role"
-                  value={role || "participant"}
-                />
                 <UserInput
                   id="email"
                   className="grid gap-2"

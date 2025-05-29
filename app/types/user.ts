@@ -1,5 +1,5 @@
-import { signupPayloadSchema } from "~/server/services/schemas/signup.schema";
-import { signinPayloadSchema } from "~/server/services/schemas/signin.schema";
+import { signupPayloadSchema } from "~/server/services/auth/auth-client";
+import { signinPayloadSchema } from "~/server/services/auth/auth-client";
 import { z } from "zod";
 
 export type User = {

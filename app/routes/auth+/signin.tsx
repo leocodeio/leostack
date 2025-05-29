@@ -1,5 +1,4 @@
 // imports
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,15 +11,11 @@ import {
 import { UserInput } from "@/components/self/user-input";
 
 // remix
-import { Form, Link, useActionData, useNavigate } from "@remix-run/react";
-import { useEffect, useState } from "react";
+import { Form, Link, useNavigate } from "@remix-run/react";
+import { useState } from "react";
 
 // hooks
 import { toast } from "@/hooks/use-toast";
-
-// types
-import { SigninPayload, User } from "@/types/user";
-import { ActionResult } from "@/types/action-result";
 
 // loader and action
 import { loader as signinLoader } from "@/routes/loader+/auth+/signin";
@@ -36,31 +31,9 @@ export default function Signin() {
     null
   );
 
-  // action
   const navigate = useNavigate();
 
   // action
-  // useEffect(() => {
-  //   if (actionData?.success) {
-  //     toast({
-  //       title: "Signin",
-  //       description: actionData.message,
-  //       variant: "default",
-  //     });
-  //     navigate("/");
-  //   } else if (actionData?.success === false) {
-  //     if (actionData.origin === "email") {
-  //       setError({ type: "email", message: actionData.message });
-  //     } else if (actionData.origin === "password") {
-  //       setError({ type: "password", message: actionData.message });
-  //     } else {
-  //       toast({
-  //         title: "Signin Failed",
-  //         description: actionData.message,
-  //       });
-  //     }
-  //   }
-  // }, [actionData, navigate]);
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -79,15 +52,27 @@ export default function Signin() {
             navigate("/");
           },
           onError: (ctx) => {
-            setError({
-              type: "error",
-              message: ctx.error.message,
-            });
-            toast({
-              title: "Error",
-              description: ctx.error.message,
-              variant: "destructive",
-            });
+            if (ctx.response.status === 401) {
+              setError({
+                type: "password",
+                message: "invalid email or password",
+              });
+              toast({
+                title: "Error",
+                description: "invalid email or password",
+                variant: "destructive",
+              });
+            } else {
+              setError({
+                type: "error",
+                message: "something went wrong",
+              });
+              toast({
+                title: "Error",
+                description: "something went wrong",
+                variant: "destructive",
+              });
+            }
           },
         }
       );
