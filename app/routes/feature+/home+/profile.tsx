@@ -13,31 +13,18 @@ import { UserInput } from "@/components/self/user-input";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { userSession } from "@/services/sessions.server";
+import { getSession } from "~/server/services/auth/db.server";
 import { redirect } from "@remix-run/node";
 import { User } from "@/types/user";
-import { me } from "@/services/auth.server";
 
 export async function loader({ request }: any) {
-  const session = await userSession(request);
-  const isAuthenticated = session.isAuthenticated();
-  console.log("---1---start home/profile.ts", isAuthenticated);
-  if (!isAuthenticated) {
+  const session = await getSession(request);
+  const user = session?.user;
+  console.log("---2---start home/profile.ts", user);
+  if (!user) {
     return redirect("/auth/signin");
   }
-  const role = session.getRole();
-  console.log("---2---start home/profile.ts", role);
-  if (!role) {
-    return redirect("/auth/signin");
-  }
-  // Get user details from the me endpoint
-  const meResponse = await me(role, request);
-  if (!meResponse.ok) {
-    return redirect("/auth/signin");
-  }
-  console.log("---3---start home/profile.ts", meResponse);
-  const userData = await meResponse.json();
-  return { user: userData.payload };
+  return { user: user };
 }
 
 export default function Profile() {
@@ -91,12 +78,15 @@ export default function Profile() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="role">Role</Label>
-                <Input id="role" type="text" value={user?.role} disabled />
+                <Input id="role" type="text" value={"todo"} disabled />
               </div>
               <Button disabled type="submit" className="w-full">
                 Save Changes
               </Button>
-              <Link to="/home" className="w-full text-center outline outline-1 outline-gray-300 rounded-md p-2 hover:bg-gray-900">
+              <Link
+                to="/home"
+                className="w-full text-center outline outline-1 outline-gray-300 rounded-md p-2 hover:bg-gray-900"
+              >
                 Home
               </Link>
             </Form>

@@ -31,7 +31,7 @@ export function CommonHeader() {
     );
   };
   return (
-    <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
+    <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear mx-2">
       <div className="ml-auto flex items-center justify-between gap-2 w-full">
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
           <SidebarTrigger className="-ml-1" />

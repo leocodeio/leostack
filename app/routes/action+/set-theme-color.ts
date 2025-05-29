@@ -4,7 +4,7 @@ import {
   redirect,
   type ActionFunctionArgs,
 } from "@remix-run/node";
-import { getThemeColorSession } from "~/services/sessions.server";
+import { getThemeColorSession } from "~/server/services/session/sessions.server";
 
 export async function action({ request }: ActionFunctionArgs) {
   try {

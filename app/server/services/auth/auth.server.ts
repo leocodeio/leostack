@@ -1,20 +1,37 @@
-import { signupPayloadSchema } from "~/services/schemas/signup.schema";
-import { signinPayloadSchema } from "~/services/schemas/signin.schema";
+import { authClient } from "~/server/services/auth/auth-client";
 import { SignupPayload, SigninPayload } from "~/types/user";
-import { userSession } from "./sessions.server";
 
+// schemas
+import { z } from "zod";
+
+export const signupPayloadSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  password: z.string().min(8),
+  confirmPassword: z.string().min(8),
+  role: z.enum(["initiator", "participant"]),
+});
+
+export const signinPayloadSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  role: z.enum(["initiator", "participant"]),
+});
+
+// functions
+
+// generic
 // start ------------------------------ signup ------------------------------
 export const signup = async (signupPayload: SignupPayload) => {
-  const { email, password, confirmPassword } = signupPayloadSchema.parse(
-    signupPayload
-  );
+  const { email, password, confirmPassword } =
+    signupPayloadSchema.parse(signupPayload);
 
   if (password !== confirmPassword) {
     return new Response(
       JSON.stringify({
         ok: false,
         message: "Password and confirm password do not match",
-        data: null
+        data: null,
       }),
       {
         status: 400,
@@ -37,8 +54,8 @@ export const signup = async (signupPayload: SignupPayload) => {
         id: "1",
         email,
         name: "John Doe",
-      }
-    }
+      },
+    },
   };
 
   return new Response(JSON.stringify(dummyData), {
@@ -63,8 +80,8 @@ export const signin = async (signinPayload: SigninPayload) => {
         id: "1",
         email,
         name: "John Doe",
-      }
-    }
+      },
+    },
   };
 
   return new Response(JSON.stringify(dummyData), {
@@ -75,3 +92,10 @@ export const signin = async (signinPayload: SigninPayload) => {
   });
 };
 // end ------------------------------ signin ------------------------------
+
+// start ------------------------------ google ------------------------------
+export const betterAuthGoogle = async () => {
+  await authClient.signIn.social({
+    provider: "google",
+  });
+};

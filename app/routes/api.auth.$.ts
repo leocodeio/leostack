@@ -1,4 +1,4 @@
-import { auth } from "~/server/db.server";
+import { auth } from "~/server/services/auth/db.server";
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node";
 
 export async function loader({ request }: LoaderFunctionArgs) {

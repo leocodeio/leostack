@@ -4,7 +4,7 @@ import {
   getThemeColorSession,
   themeSessionResolver,
   getI18nSession,
-} from "./services/sessions.server";
+} from "./server/services/session/sessions.server";
 
 import {
   Meta,

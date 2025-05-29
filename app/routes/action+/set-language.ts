@@ -5,7 +5,7 @@ import {
   type ActionFunctionArgs,
 } from "@remix-run/node";
 
-import { getI18nSession } from "~/services/sessions.server";
+import { getI18nSession } from "~/server/services/session/sessions.server";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();

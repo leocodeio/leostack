@@ -1,5 +1,5 @@
 import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
-import { userSession } from "@/services/sessions.server";
+import { userSession } from "~/server/services/session/sessions.server";
 
 export const ROUTE_PATH = "/auth/signin" as const;
 

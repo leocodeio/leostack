@@ -18,7 +18,7 @@ import {
   getI18nSession,
   getThemeColorSession,
   themeSessionResolver,
-} from "../services/sessions.server";
+} from "../server/services/session/sessions.server";
 import { ValidationError } from "../utils/data-inject-error";
 import { Theme } from "remix-themes";
 import { ThemeColors } from "../types/theme-types";

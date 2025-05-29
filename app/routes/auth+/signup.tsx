@@ -1,3 +1,4 @@
+// imports
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,25 +8,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Form, Link, useActionData, useNavigate } from "@remix-run/react";
 import { UserInput } from "@/components/self/user-input";
+
+// remix
+import { Form, Link, useActionData, useNavigate } from "@remix-run/react";
 import { useEffect, useState } from "react";
+
+// types
 import { SignupPayload, User } from "@/types/user";
 import { ActionResult } from "@/types/action-result";
+
+// hooks
 import { toast } from "@/hooks/use-toast";
 
-// toggle group
-import { UserCircle2Icon, UserRoundIcon } from "lucide-react";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-
-import { action as signupAction } from "@/routes/action+/auth+/signup.action";
+// loader and action
 import { loader as signupLoader } from "@/routes/loader+/auth+/signup";
-
-export const action = signupAction;
+import { authClient } from "~/server/services/auth/auth-client";
 export const loader = signupLoader;
 
 export default function Signup() {
-  // Reorder state declarations to match Signin.tsx
+  // state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -35,27 +37,58 @@ export default function Signup() {
     null
   );
 
-  // Move navigate and actionData declarations here
+  // navigate
   const navigate = useNavigate();
-  const actionData = useActionData<ActionResult<User | SignupPayload>>();
 
-  useEffect(() => {
-    if (actionData?.success) {
-      toast({
-        title: "Sign",
-        description: actionData.message,
-        variant: "default",
-      });
-      navigate("/");
-    } else if (actionData?.success === false) {
-      if (actionData.origin === "email") {
-        setError({ type: "email", message: actionData.message });
-      } else if (actionData.origin === "password") {
-        setError({ type: "password", message: actionData.message });
-      }
+  // action
+  // useEffect(() => {
+  //   if (actionData?.success) {
+  //     toast({
+  //       title: "Sign",
+  //       description: actionData.message,
+  //       variant: "default",
+  //     });
+  //     navigate("/");
+  //   } else if (actionData?.success === false) {
+  //     if (actionData.origin === "email") {
+  //       setError({ type: "email", message: actionData.message });
+  //     } else if (actionData.origin === "password") {
+  //       setError({ type: "password", message: actionData.message });
+  //     }
+  //   }
+  // }, [actionData, navigate]);
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await authClient.signUp.email(
+        {
+          email,
+          password,
+          name,
+        },
+        {
+          onSuccess: () => {
+            toast({
+              title: "Signup",
+              description: "Signup successful",
+              variant: "default",
+            });
+            navigate("/");
+          },
+          onError: (ctx) => {
+            setError({
+              type: "error",
+              message: ctx.error.message,
+            });
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
     }
-  }, [actionData, navigate]);
+  };
 
+  // component
   return (
     <div className={cn("flex flex-col gap-6")}>
       <Card>
@@ -66,33 +99,8 @@ export default function Signup() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Form method="post">
+          <Form onSubmit={handleSignUp}>
             <div className="flex flex-col gap-6">
-              <ToggleGroup
-                type="single"
-                variant="outline"
-                defaultValue={role}
-                onValueChange={(value: string) => {
-                  if (value) {
-                    setRole(value);
-                  }
-                }}
-              >
-                <ToggleGroupItem
-                  value="initiator"
-                  aria-label="Toggle initiator"
-                  name="role"
-                >
-                  <UserCircle2Icon className="h-4 w-4" /> Initiator
-                </ToggleGroupItem>
-                <ToggleGroupItem
-                  value="participant"
-                  aria-label="Toggle participant"
-                  name="role"
-                >
-                  <UserRoundIcon className="h-4 w-4" /> Participant
-                </ToggleGroupItem>
-              </ToggleGroup>
               <div className="grid gap-2">
                 <input
                   type="hidden"

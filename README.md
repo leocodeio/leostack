@@ -18,6 +18,14 @@
 - Email and Password Authentication
 - Social Authentication (Google, Github, etc)
 - Database Integration (PostgreSQL)
+- [ ] ENV check
+- [ ] Logging
+- [ ] Deployment
+- [ ] Documentation
+- [ ] CI/CD
+- [ ] Rate limiting
+- [ ] Caching
+- [ ] Testing
 
 ## Setup
 
