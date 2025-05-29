@@ -25,7 +25,7 @@ export const CommonHero = () => {
             rel="noreferrer noopener"
             href="https://github.com/leocodeio/echofeedai"
             target="_blank"
-            className={`w-full md:w-1/3 py-5 px-4 text-center  dark:border-gray-700  hover:dark:bg-gray-700 border border border-gray-300 ${buttonVariants(
+            className={`w-full md:w-1/3 py-5 px-4 text-center  dark:border-gray-700  hover:dark:bg-gray-700 border border-gray-300 ${buttonVariants(
               {
                 variant: "outline",
               }

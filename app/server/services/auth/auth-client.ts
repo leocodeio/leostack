@@ -1,5 +1,5 @@
+import { NavigateFunction } from "@remix-run/react";
 import { createAuthClient } from "better-auth/react";
-import { useNavigate } from "@remix-run/react";
 export const authClient = createAuthClient({
   baseURL: "http://localhost:5173",
   trustedOrigins: ["http://localhost:5173"],
@@ -36,11 +36,11 @@ export const betterAuthGoogle = async () => {
 };
 // end ------------------------------ google ------------------------------
 // start ------------------------------ signout ------------------------------
-export const betterAuthSignout = async () => {
-  const navigate = useNavigate();
+export const betterAuthSignout = async (navigate: NavigateFunction) => {
   await authClient.signOut({
     fetchOptions: {
       onSuccess: () => {
+        console.log("signout success");
         navigate("/");
       },
     },

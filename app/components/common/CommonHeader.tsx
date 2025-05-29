@@ -13,16 +13,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Form, Link, useSubmit } from "@remix-run/react";
+import { Form, Link, useNavigate, useSubmit } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import { language } from "../../utils/language";
 // import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ThemeColorToggle } from "../theme-color-toggle";
 import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
+import { betterAuthSignout } from "~/server/services/auth/auth-client";
 
 export function CommonHeader() {
   const { i18n } = useTranslation();
+  const navigate = useNavigate();
+
   const submit = useSubmit();
   const handleLanguageChange = (value: string) => {
     submit(
@@ -30,6 +33,12 @@ export function CommonHeader() {
       { method: "post", action: "/action/set-language" }
     );
   };
+
+  const handleSignout = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    betterAuthSignout(navigate);
+  };
+
   return (
     <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear mx-2">
       <div className="ml-auto flex items-center justify-between gap-2 w-full">
@@ -86,7 +95,7 @@ export function CommonHeader() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild className="p-0">
-              <Form method="post" action="/auth/logout" className="p-0 m-0">
+              <Form onSubmit={handleSignout} className="p-0 m-0">
                 <Button
                   type="submit"
                   variant="ghost"
