@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/leocodeio/leostack/compare/v1.0.0...v1.0.1) (2025-05-30)
+
+
+### Performance Improvements
+
+* **profile page:** profile page ([aa4cb1b](https://github.com/leocodeio/leostack/commit/aa4cb1bc5b6a74a152f5e24070f14f46cc92e9a8))
+
 # 1.0.0 (2025-05-29)
 
 
