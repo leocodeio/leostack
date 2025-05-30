@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/leocodeio/leostack/compare/v1.0.1...v1.0.2) (2025-05-30)
+
+
+### Performance Improvements
+
+* **prefinalize auth:** prefinalize auth ([dac3501](https://github.com/leocodeio/leostack/commit/dac35011edcfd4d3c7150e525a076181f4f6f6ad))
+
 ## [1.0.1](https://github.com/leocodeio/leostack/compare/v1.0.0...v1.0.1) (2025-05-30)
 
 
