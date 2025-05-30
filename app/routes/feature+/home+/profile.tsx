@@ -33,7 +33,7 @@ export default function Profile() {
   const [email, setEmail] = useState(user?.email || "");
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 max-w-xl m-2">
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Profile</CardTitle>

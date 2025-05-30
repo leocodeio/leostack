@@ -90,7 +90,7 @@ export function CommonHeader() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator /> */}
             <DropdownMenuItem asChild>
-              <Link to="/home/profile" className="w-full cursor-pointer">
+              <Link to="/feature/home/profile" className="w-full cursor-pointer">
                 Profile
               </Link>
             </DropdownMenuItem>
