@@ -28,7 +28,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link, useLocation } from "@remix-run/react";
+import { Link, useLocation, useNavigate } from "@remix-run/react";
+import { betterAuthSignout } from "~/server/services/auth/auth-client";
 
 const dummyData = {
   user: {
@@ -159,6 +160,14 @@ export function CommonSidebar({
   if (!data) {
     data = dummyData;
   }
+
+  // start ------------------------------ signout ------------------------------
+  const navigate = useNavigate();
+  const handleSignout = async () => {
+    await betterAuthSignout(navigate);
+    console.log("signout");
+  };
+  // end ------------------------------ signout ------------------------------
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarContent>
@@ -172,18 +181,18 @@ export function CommonSidebar({
             {/* Main navigation items */}
             <SidebarMenu className="flex flex-col w-full px-5 gap-3">
               {data.map((item: any) => (
-                <SidebarMenuItem key={item.title}>
-                  <Link to={item.url}>
+                <SidebarMenuItem key={item.name}>
+                  <Link to={item.to}>
                     <SidebarMenuButton
-                      tooltip={item.title}
+                      tooltip={item.name}
                       className={`flex items-center gap-5 py-2 px-3 w-full rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 ${
-                        getIsActive(item.url)
+                        getIsActive(item.to)
                           ? "bg-gray-200 dark:bg-gray-700"
                           : ""
                       }`}
                     >
                       {item.icon && <item.icon size={18} />}
-                      <span className="text-xm font-bold">{item.title}</span>
+                      <span className="text-xm font-bold">{item.name}</span>
                     </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>
@@ -194,7 +203,7 @@ export function CommonSidebar({
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu className="flex flex-col w-full gap-3 px-8">
-          <SidebarMenuItem>
+          {/* <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Settings"
               className="flex items-center gap-5 py-2 px-3 w-full hover:bg-gray-100 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -202,10 +211,11 @@ export function CommonSidebar({
               <Settings size={18} />
               <span className="text-xm font-bold">Settings</span>
             </SidebarMenuButton>
-          </SidebarMenuItem>
+          </SidebarMenuItem> */}
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Logout"
+              onClick={handleSignout}
               className="flex items-center gap-5 py-2 px-3 w-full hover:bg-gray-100 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 "
             >
               <LogOut size={18} />

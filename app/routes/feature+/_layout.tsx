@@ -6,18 +6,14 @@ import { loader as dashboardLoader } from "../loader+/feature+/dashboard+/dashbo
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { CommonHeader } from "../../components/common/CommonHeader";
 export const loader = dashboardLoader;
-const navlinks = [
-  {
-    title: "Dashboard",
-    url: "/feature/dashboard",
-  },
-];
+import { NavLinks } from "~/models/navlinks";
+
 export default function Dashboard() {
   // const { role, userName } = useLoaderData<typeof loader>();
 
   return (
     <SidebarProvider>
-      <CommonSidebar data={navlinks} variant="inset" />
+      <CommonSidebar data={NavLinks} variant="inset" />
       <SidebarInset>
         <CommonHeader />
         <Outlet />

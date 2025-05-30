@@ -12,7 +12,7 @@ export function CommonSubHeader({
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
   return (
-    <Card className="shadow-none rounded-none bg-transparent border-b rounded-md">
+    <Card className="shadow-none bg-transparent border-b rounded-md m-2">
       <CardContent className="flex flex-col p-4">
         <CardDescription>Welcome {makeCamle(role!)}</CardDescription>
         <div className="text-xl font-medium mt-0.5">{userName}</div>
