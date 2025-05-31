@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/leocodeio/leostack/compare/v1.1.0...v1.2.0) (2025-05-31)
+
+
+### Features
+
+* **routing if profile not completed:** routing if profile not completed ([f66f0a5](https://github.com/leocodeio/leostack/commit/f66f0a5c4557859338068fba53a05d3cf34fafa8))
+
 # [1.1.0](https://github.com/leocodeio/leostack/compare/v1.0.4...v1.1.0) (2025-05-31)
 
 
