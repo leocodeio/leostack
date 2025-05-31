@@ -20,11 +20,9 @@ import { language } from "../../utils/language";
 import { ThemeColorToggle } from "../theme-color-toggle";
 import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
-import { betterAuthSignout, getUser } from "~/server/services/auth/auth-client";
-import { User } from "better-auth";
-import { useEffect, useState } from "react";
+import { betterAuthSignout } from "~/server/services/auth/auth-client";
 
-export function CommonHeader() {
+export function CommonHeader({ user }: { user: { image: string } | null }) {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -40,16 +38,6 @@ export function CommonHeader() {
     e.preventDefault();
     betterAuthSignout(navigate);
   };
-
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getUser();
-      setUser(user);
-    };
-    fetchUser();
-  }, []);
 
   return (
     <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear mx-2">

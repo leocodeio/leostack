@@ -9,13 +9,13 @@ export const loader = dashboardLoader;
 import { NavLinks } from "~/models/navlinks";
 
 export default function Dashboard() {
-  // const { role, userName } = useLoaderData<typeof loader>();
+  const { user } = useLoaderData<typeof loader>();
 
   return (
     <SidebarProvider>
       <CommonSidebar data={NavLinks} variant="inset" />
       <SidebarInset>
-        <CommonHeader />
+        <CommonHeader user={user} />
         <Outlet />
       </SidebarInset>
     </SidebarProvider>

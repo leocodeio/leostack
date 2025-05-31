@@ -9,7 +9,7 @@ export const authClient = createAuthClient({
 
 // start ------------------------------ google signin ------------------------------
 export const betterAuthGoogle = async () => {
-  await authClient.signIn.social({
+  const response = await authClient.signIn.social({
     /**
      * The social provider ID
      * @example "github", "google", "apple"
@@ -33,7 +33,14 @@ export const betterAuthGoogle = async () => {
      * @default false
      */
     disableRedirect: false,
+    /**
+     * The scopes to request from the provider
+     * @default []
+     */
+    // scopes: ["https://www.googleapis.com/auth/user.phonenumbers.read"],
+    scopes: [],
   });
+  console.log("response from google signin", response);
 };
 // start ------------------------------ signout ------------------------------
 export const betterAuthSignout = async (navigate: NavigateFunction) => {
@@ -47,12 +54,6 @@ export const betterAuthSignout = async (navigate: NavigateFunction) => {
   });
 };
 // end ------------------------------ signout ------------------------------
-// start ------------------------------ get user ------------------------------
-export const getUser = async () => {
-  const sesssion = await authClient.getSession();
-  return sesssion?.data?.user as User;
-};
-// end ------------------------------ get user ------------------------------
 
 // schemas
 import { z } from "zod";

@@ -1,4 +1,4 @@
-import { CommonHeader } from "@/components/common/CommonHeader";
+
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { CommonSubHeader } from "~/components/common/CommonSubHeader";
 import { getSession } from "~/server/services/auth/db.server";
@@ -13,7 +13,7 @@ export default function DashboardLayout() {
   const { user } = useLoaderData<typeof loader>();
   return (
     <>
-      <CommonSubHeader userName={user?.name as string} role={"todo"} />
+      <CommonSubHeader userName={user?.name as string} role={user?.role as string} />
       <Outlet />
     </>
   );

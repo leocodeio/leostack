@@ -9,5 +9,5 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<any> {
   if (!session) {
     return redirect("/");
   }
-  return null;
+  return { user: session.user };
 }
