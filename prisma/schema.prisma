@@ -19,11 +19,15 @@ model User {
   email         String
   emailVerified Boolean
   image         String?
-  role          String?
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+
+  role             String?
+  phone            String?
+  phoneVerified    Boolean?
+  profileCompleted Boolean?
 
   @@unique([email])
   @@map("user")
