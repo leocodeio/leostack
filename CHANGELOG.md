@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/leocodeio/leostack/compare/v1.0.3...v1.0.4) (2025-05-31)
+
+
+### Bug Fixes
+
+* **phone and email added:** phone and email added ([27e8d3b](https://github.com/leocodeio/leostack/commit/27e8d3be095aae8c1912dd352b4bbd8125950332))
+
 ## [1.0.3](https://github.com/leocodeio/leostack/compare/v1.0.2...v1.0.3) (2025-05-31)
 
 
