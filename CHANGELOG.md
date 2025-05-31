@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/leocodeio/leostack/compare/v1.2.0...v1.3.0) (2025-05-31)
+
+
+### Features
+
+* **payment logic implemented:** payment logic implemented ([d025be0](https://github.com/leocodeio/leostack/commit/d025be0e43c542cae5419c580ff3c0d082a94ea3))
+
 # [1.2.0](https://github.com/leocodeio/leostack/compare/v1.1.0...v1.2.0) (2025-05-31)
 
 
