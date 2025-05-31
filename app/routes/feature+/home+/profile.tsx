@@ -12,7 +12,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserInput } from "@/components/self/user-input";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getSession, updateUser } from "~/server/services/auth/db.server";
+import { getSession } from "~/server/services/auth/db.server";
+import { updateUser } from "~/server/services/auth/user.server";
 import { redirect } from "@remix-run/node";
 import { CommonSubHeader } from "~/components/common/CommonSubHeader";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -29,6 +30,7 @@ import { PhoneInput } from "~/components/common/utils/phoneInput";
 export async function loader({ request }: any) {
   const session = await getSession(request);
   const user = session?.user;
+  console.log("user", user);
   if (!user) {
     return redirect("/auth/signin");
   }
@@ -59,11 +61,12 @@ export default function Profile() {
   return (
     <>
       <CommonSubHeader
+        className={"w-fit"}
         variant={user?.profileCompleted ? "default" : "warning"}
         userName={
           user?.profileCompleted
             ? "You have verified your details"
-            : "Please verify your details"
+            : "Please enter your phone number and roleto use the product"
         }
         role={user?.role || ""}
       />
@@ -146,14 +149,13 @@ export default function Profile() {
                       placeholder="Enter your phone number"
                       disabled={user?.phone ? true : false}
                     />
-                    {!phoneVerified ||
-                      (!user.phone && (
-                        <p className="text-sm text-gray-500">
-                          please be careful while entering -
-                          <br />
-                          <b>{"+<country code><phone number>"}</b>
-                        </p>
-                      ))}
+                    {!user?.phone && (
+                      <p className="text-sm text-gray-500">
+                        please be careful while entering -
+                        <br />
+                        <b>{"+<country code><phone number>"}</b>
+                      </p>
+                    )}
                   </div>
                   <div className="flex flex-col gap-2 justify-center">
                     <Label htmlFor="phoneVerified">Phone Verified</Label>

@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String         @id
   name          String
   email         String
   emailVerified Boolean
@@ -23,6 +23,8 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  subscriptions Subscription[]
+  payments      Payment[]
 
   role             String?
   phone            String?
@@ -76,4 +78,37 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Subscription {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planId          String
+  planSlug        String
+  status          String
+  startDate       DateTime  @default(now())
+  endDate         DateTime?
+  canceledAt      DateTime?
+  polarCheckoutId String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@map("subscription")
+  @@unique([polarCheckoutId])
+}
+
+model Payment {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount       Float
+  currency     String
+  status       String
+  polarOrderId String
+  checkoutId   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("payment")
 }

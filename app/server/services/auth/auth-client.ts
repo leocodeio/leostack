@@ -1,10 +1,18 @@
 import { NavigateFunction } from "@remix-run/react";
 import { createAuthClient } from "better-auth/react";
-import { User } from "better-auth";
 
+/*
+ * polar
+ */
+import { polarClient } from "@polar-sh/better-auth";
+
+/*
+ * auth client
+ */
 export const authClient = createAuthClient({
   baseURL: "http://localhost:5173",
   trustedOrigins: ["http://localhost:5173"],
+  plugins: [polarClient()],
 });
 
 // start ------------------------------ google signin ------------------------------

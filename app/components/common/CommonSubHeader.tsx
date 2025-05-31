@@ -11,10 +11,12 @@ export function CommonSubHeader({
   userName,
   role,
   variant,
+  className,
 }: {
   userName: string;
   role: string;
   variant: "default" | "warning";
+  className?: string;
 }) {
   // console.log(role, userName);
   const makeCamle = (string: string) => {
@@ -24,6 +26,7 @@ export function CommonSubHeader({
     <Card
       className={cn(
         "shadow-none bg-transparent border-b rounded-md m-2",
+        className,
         variant === "warning" && "border-yellow-500"
       )}
     >

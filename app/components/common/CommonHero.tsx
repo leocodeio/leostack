@@ -11,7 +11,7 @@ export const CommonHero = () => {
       <div className="text-center space-y-6 flex flex-col items-center justify-center w-full">
         <main className="text-5xl md:text-6xl font-bold">
           <h1 className="inline">
-            EchoFeedAI
+            Leostack
             <br></br>
           </h1>{" "}
         </main>
@@ -23,7 +23,7 @@ export const CommonHero = () => {
         <div className="space-y-4 md:space-y-0 md:space-x-4">
           <a
             rel="noreferrer noopener"
-            href="https://github.com/leocodeio/echofeedai"
+            href="https://github.com/leocodeio/leostack"
             target="_blank"
             className={`w-full md:w-1/3 py-5 px-4 text-center  dark:border-gray-700  hover:dark:bg-gray-700 border border-gray-300 ${buttonVariants(
               {
@@ -38,7 +38,7 @@ export const CommonHero = () => {
             variant="default"
             className="w-full md:w-1/3 mr-4 py-5 px-8 text-center"
           >
-            <Link to="/feature/source">Generate</Link>
+            <Link to="/feature/dashboard">Get Started</Link>
           </Button>
         </div>
       </div>

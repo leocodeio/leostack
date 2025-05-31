@@ -1,9 +1,40 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@prisma/client";
+import {
+  handleOrderPaid,
+  handleSubscriptionCanceled,
+  handleSubscriptionRevoked,
+} from "../payments/payment-client";
 
-const prisma = new PrismaClient();
+/*
+ * prisma
+ */
+export const prisma = new PrismaClient();
 
+/*
+ * polar
+ */
+import {
+  polar,
+  checkout,
+  portal,
+  usage,
+  webhooks,
+} from "@polar-sh/better-auth";
+import { Polar } from "@polar-sh/sdk";
+
+const polarClient = new Polar({
+  accessToken: process.env.POLAR_ACCESS_TOKEN,
+  // Use 'sandbox' if you're using the Polar Sandbox environment
+  // Remember that access tokens, products, etc. are completely separated between environments.
+  // Access tokens obtained in Production are for instance not usable in the Sandbox environment.
+  server: "sandbox",
+});
+
+/*
+ * better-auth
+ */
 export const auth = betterAuth({
   /*
    * database
@@ -26,8 +57,8 @@ export const auth = betterAuth({
    */
   socialProviders: {
     google: {
-      clientId: process.env.BETTER_AUTH_GOOGLE_ID as string,
-      clientSecret: process.env.BETTER_AUTH_GOOGLE_SECRET as string,
+      clientId: process.env.BETTER_AUTH_GOOGLE_ID!,
+      clientSecret: process.env.BETTER_AUTH_GOOGLE_SECRET!,
     },
   },
 
@@ -50,62 +81,40 @@ export const auth = betterAuth({
       },
     },
   },
+
+  /*
+   * plugins
+   */
+  plugins: [
+    polar({
+      client: polarClient,
+      createCustomerOnSignUp: true,
+      use: [
+        checkout({
+          products: [
+            {
+              productId: "d6fd3bbd-8fae-4302-b4a6-240497c03626",
+              slug: "benificial",
+            },
+          ],
+          successUrl: "/api/payments/success?checkout_id={CHECKOUT_ID}",
+          authenticatedUsersOnly: true,
+        }),
+        portal(),
+        usage(),
+        webhooks({
+          secret: process.env.POLAR_WEBHOOK_SECRET!,
+          onOrderPaid: handleOrderPaid,
+          onSubscriptionCanceled: handleSubscriptionCanceled,
+          onSubscriptionRevoked: handleSubscriptionRevoked,
+        }),
+      ],
+    }),
+  ],
 });
 
 // session
 export const getSession = async (request: Request) => {
   const session = await auth.api.getSession(request);
   return session;
-};
-
-/*
- * update user
- * @param name - the name of the user
- * @param email - the email of the user
- * @param phone - the phone of the user
- * @param role - the role of the user
- * @param emailVerified - the email verified of the user
- * @param phoneVerified - the phone verified of the user
- * @param profileCompleted - the profile completed of the user
- * @returns the updated user
- */
-export const updateUser = async (
-  id: string,
-  name: string,
-  phone: string,
-  role: string
-) => {
-  const data: {
-    name?: string;
-    phone?: string;
-    role?: string;
-  } = {
-    name,
-  };
-
-  if (phone) {
-    data.phone = phone;
-  }
-
-  if (role) {
-    data.role = role;
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { id },
-  });
-
-  const profileCompleted =
-    (user?.phone || data.phone) && (user?.role || data.role) && user?.email
-      ? true
-      : false;
-
-  const updatedUser = await prisma.user.update({
-    where: { id },
-    data: {
-      ...data,
-      profileCompleted,
-    },
-  });
-  return updatedUser;
 };
