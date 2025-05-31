@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -26,6 +27,10 @@ import {
   authClient,
   signupPayloadSchema,
 } from "~/server/services/auth/auth-client";
+import { GoogleSignInButton } from "~/components/auth/providers/google";
+import { Orbit, OrbitIcon } from "lucide-react";
+import { Avatar, AvatarImage } from "~/components/ui/avatar";
+import { PROFILE_PICTURES } from "~/models/profilePictures";
 export const loader = signupLoader;
 
 export default function Signup() {
@@ -36,6 +41,9 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<{ type: string; message: string } | null>(
     null
+  );
+  const [selectedProfilePic, setSelectedProfilePic] = useState(
+    PROFILE_PICTURES[0]
   );
 
   // navigate
@@ -50,6 +58,7 @@ export default function Signup() {
         password,
         name,
         confirmPassword,
+        image: selectedProfilePic,
       });
       if (!payload.success) {
         setError({
@@ -109,12 +118,41 @@ export default function Signup() {
         <CardHeader>
           <CardTitle className="text-2xl">Sign Up</CardTitle>
           <CardDescription>
-            Enter your email below to sign up for an account
+            We recommend using google provider to sign up
           </CardDescription>
+          <GoogleSignInButton />
         </CardHeader>
+        <OrbitIcon className="w-full text-center" />
         <CardContent>
           <Form onSubmit={handleSignUp}>
             <div className="flex flex-col gap-6">
+              {/* Profile Picture Selection */}
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium">Profile Picture</label>
+                <div className="flex gap-4">
+                  {PROFILE_PICTURES.map((pic, index) => (
+                    <div
+                      key={index}
+                      className={`cursor-pointer rounded-full border-2 ${
+                        selectedProfilePic === pic
+                          ? "border-primary"
+                          : "border-transparent"
+                      }`}
+                      onClick={() => setSelectedProfilePic(pic)}
+                    >
+                      <Avatar className="h-16 w-16">
+                        <AvatarImage src={pic} alt={`Profile ${index + 1}`} />
+                      </Avatar>
+                    </div>
+                  ))}
+                </div>
+                <input
+                  type="hidden"
+                  name="profilePicUrl"
+                  value={selectedProfilePic}
+                />
+              </div>
+
               <div className="grid gap-2">
                 <UserInput
                   id="email"
@@ -185,7 +223,7 @@ export default function Signup() {
               <Button type="submit" className="w-full">
                 Sign Up
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" type="button" className="w-full">
                 <Link to="/">Back to Home</Link>
               </Button>
             </div>

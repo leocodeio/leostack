@@ -1,13 +1,15 @@
 import { NavigateFunction } from "@remix-run/react";
 import { createAuthClient } from "better-auth/react";
+import { User } from "better-auth";
+
 export const authClient = createAuthClient({
   baseURL: "http://localhost:5173",
   trustedOrigins: ["http://localhost:5173"],
 });
 
-// start ------------------------------ google ------------------------------
+// start ------------------------------ google signin ------------------------------
 export const betterAuthGoogle = async () => {
-  const data = await authClient.signIn.social({
+  await authClient.signIn.social({
     /**
      * The social provider ID
      * @example "github", "google", "apple"
@@ -17,24 +19,22 @@ export const betterAuthGoogle = async () => {
      * A URL to redirect after the user authenticates with the provider
      * @default "/"
      */
-    callbackURL: "/dashboard",
+    // callbackURL: "/feature/dashboard",
     /**
      * A URL to redirect if an error occurs during the sign in process
      */
-    errorCallbackURL: "/error",
+    // errorCallbackURL: "/auth/signin",
     /**
      * A URL to redirect if the user is newly registered
      */
-    newUserCallbackURL: "/welcome",
+    // newUserCallbackURL: "/feature/dashboard",
     /**
      * disable the automatic redirect to the provider.
      * @default false
      */
-    disableRedirect: true,
+    disableRedirect: false,
   });
-  return data;
 };
-// end ------------------------------ google ------------------------------
 // start ------------------------------ signout ------------------------------
 export const betterAuthSignout = async (navigate: NavigateFunction) => {
   await authClient.signOut({
@@ -47,6 +47,12 @@ export const betterAuthSignout = async (navigate: NavigateFunction) => {
   });
 };
 // end ------------------------------ signout ------------------------------
+// start ------------------------------ get user ------------------------------
+export const getUser = async () => {
+  const sesssion = await authClient.getSession();
+  return sesssion?.data?.user as User;
+};
+// end ------------------------------ get user ------------------------------
 
 // schemas
 import { z } from "zod";
@@ -79,6 +85,7 @@ export const signupPayloadSchema = z.object({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/
     ),
   role: z.enum(["user"]).optional(),
+  image: z.string().url(),
 });
 
 export const signinPayloadSchema = z.object({

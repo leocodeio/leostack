@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -20,6 +21,8 @@ import { toast } from "@/hooks/use-toast";
 // loader and action
 import { loader as signinLoader } from "@/routes/loader+/auth+/signin";
 import { authClient } from "~/server/services/auth/auth-client";
+import { GoogleSignInButton } from "~/components/auth/providers/google";
+import { OrbitIcon } from "lucide-react";
 export const loader = signinLoader;
 
 export default function Signin() {
@@ -52,6 +55,7 @@ export default function Signin() {
             navigate("/");
           },
           onError: (ctx) => {
+            console.log("ctx", ctx);
             if (ctx.response.status === 401) {
               setError({
                 type: "password",
@@ -87,9 +91,11 @@ export default function Signin() {
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            We recommend using google provider to login
           </CardDescription>
+        <GoogleSignInButton />
         </CardHeader>
+        <OrbitIcon className="w-full text-center" />
         <CardContent>
           <Form onSubmit={handleSignIn}>
             <div className="flex flex-col gap-6">
@@ -147,6 +153,7 @@ export default function Signin() {
             </div>
           </Form>
         </CardContent>
+        <CardFooter></CardFooter>
       </Card>
     </div>
   );

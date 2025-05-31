@@ -20,7 +20,9 @@ import { language } from "../../utils/language";
 import { ThemeColorToggle } from "../theme-color-toggle";
 import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
-import { betterAuthSignout } from "~/server/services/auth/auth-client";
+import { betterAuthSignout, getUser } from "~/server/services/auth/auth-client";
+import { User } from "better-auth";
+import { useEffect, useState } from "react";
 
 export function CommonHeader() {
   const { i18n } = useTranslation();
@@ -38,6 +40,16 @@ export function CommonHeader() {
     e.preventDefault();
     betterAuthSignout(navigate);
   };
+
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUser();
+      setUser(user);
+    };
+    fetchUser();
+  }, []);
 
   return (
     <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear mx-2">
@@ -67,7 +79,7 @@ export function CommonHeader() {
           <DropdownMenuTrigger asChild className="cursor-pointer">
             {/* <div className="flex items-center gap-2 rounded-md border border-input px-2"> */}
             <Avatar className="h-8 w-8">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarImage src={user?.image || ""} alt="@shadcn" />
               {/* <AvatarFallback>JP</AvatarFallback> */}
             </Avatar>
             {/* <div className="text-sm font-medium">John Doe</div> */}
@@ -90,7 +102,10 @@ export function CommonHeader() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator /> */}
             <DropdownMenuItem asChild>
-              <Link to="/feature/home/profile" className="w-full cursor-pointer">
+              <Link
+                to="/feature/home/profile"
+                className="w-full cursor-pointer"
+              >
                 Profile
               </Link>
             </DropdownMenuItem>
