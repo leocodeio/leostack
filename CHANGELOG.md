@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/leocodeio/leostack/compare/v1.0.2...v1.0.3) (2025-05-31)
+
+
+### Bug Fixes
+
+* **auth fix, now will target phone number:** auth fix, now will target phone number ([5e22b56](https://github.com/leocodeio/leostack/commit/5e22b56f3ad45b6006c0acb4a19166210b657d04))
+
 ## [1.0.2](https://github.com/leocodeio/leostack/compare/v1.0.1...v1.0.2) (2025-05-30)
 
 
