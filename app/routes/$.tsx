@@ -22,7 +22,7 @@ import {
 import { ValidationError } from "../utils/data-inject-error";
 import { Theme } from "remix-themes";
 import { ThemeColors } from "../types/theme-types";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { getTheme } = await themeSessionResolver(request);
@@ -50,6 +50,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     themeColor as ThemeColors,
     401
   );
+};
+
+export const action = async () => {
+  return null;
 };
 
 export default function NotFound() {

@@ -93,12 +93,12 @@ export const signupPayloadSchema = z.object({
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/
     ),
-  role: z.enum(["user"]).optional(),
+  role: z.enum(["creator", "user"]).optional(),
   image: z.string().url(),
 });
 
 export const signinPayloadSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-  role: z.enum(["initiator", "participant"]),
+  role: z.enum(["creator", "user"]).optional(),
 });

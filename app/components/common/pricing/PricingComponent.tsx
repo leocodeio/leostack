@@ -20,7 +20,8 @@ import {
 } from "@/components/ui/table";
 import { CheckIcon, MinusIcon } from "lucide-react";
 import React from "react";
-import { checkout } from "~/server/services/payments/payment-client";
+import { toast } from "~/hooks/use-toast";
+import { checkout } from "~/server/services/payments/payment.client";
 
 interface PlanFeature {
   type: string;
@@ -114,6 +115,20 @@ const planFeatures: PlanFeature[] = [
   },
 ];
 
+const handleCheckout = async () => {
+  try {
+    const response = await checkout();
+    console.log("response", response);
+  } catch (error) {
+    toast({
+      title: "Checkout Error",
+      description: "Failed to initiate checkout. Please try again.",
+      variant: "destructive",
+    });
+    console.error("Checkout error:", error);
+  }
+};
+
 export default function PricingSectionCards() {
   return (
     <>
@@ -188,7 +203,7 @@ export default function PricingSectionCards() {
             </CardContent>
             <CardFooter>
               <Button
-                onClick={() => checkout()}
+                onClick={() => handleCheckout()}
                 className="w-full"
                 variant={"outline"}
               >
@@ -226,7 +241,13 @@ export default function PricingSectionCards() {
               </ul>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Subscribe</Button>
+              <Button
+                onClick={() => handleCheckout()}
+                className="w-full"
+                variant={"outline"}
+              >
+                Subscribe
+              </Button>
             </CardFooter>
           </Card>
           {/* End Card */}
@@ -257,7 +278,7 @@ export default function PricingSectionCards() {
             </CardContent>
             <CardFooter>
               <Button
-                onClick={() => checkout()}
+                onClick={() => handleCheckout()}
                 className="w-full"
                 variant={"outline"}
               >
@@ -292,7 +313,11 @@ export default function PricingSectionCards() {
               </ul>
             </CardContent>
             <CardFooter>
-              <Button className="w-full" variant={"outline"}>
+              <Button
+                onClick={() => checkout()}
+                className="w-full"
+                variant={"outline"}
+              >
                 Subscribe
               </Button>
             </CardFooter>
@@ -389,35 +414,37 @@ export default function PricingSectionCards() {
                 <h4 className="text-xl font-medium">Free</h4>
               </div>
               <Table>
-                {planFeatures.map((featureType) => (
-                  <React.Fragment key={featureType.type}>
-                    <TableRow className="bg-muted hover:bg-muted">
-                      <TableCell
-                        colSpan={2}
-                        className="w-10/12 text-primary font-bold"
-                      >
-                        {featureType.type}
-                      </TableCell>
-                    </TableRow>
-                    {featureType.features.map((feature) => (
-                      <TableRow
-                        className="text-muted-foreground"
-                        key={feature.name}
-                      >
-                        <TableCell className="w-11/12">
-                          {feature.name}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          {feature.enterprise ? (
-                            <CheckIcon className="h-5 w-5" />
-                          ) : (
-                            <MinusIcon className="h-5 w-5" />
-                          )}
+                <TableBody>
+                  {planFeatures.map((featureType) => (
+                    <React.Fragment key={featureType.type}>
+                      <TableRow className="bg-muted hover:bg-muted">
+                        <TableCell
+                          colSpan={2}
+                          className="w-10/12 text-primary font-bold"
+                        >
+                          {featureType.type}
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </React.Fragment>
-                ))}
+                      {featureType.features.map((feature) => (
+                        <TableRow
+                          className="text-muted-foreground"
+                          key={feature.name}
+                        >
+                          <TableCell className="w-11/12">
+                            {feature.name}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {feature.enterprise ? (
+                              <CheckIcon className="h-5 w-5" />
+                            ) : (
+                              <MinusIcon className="h-5 w-5" />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
               </Table>
             </section>
             <section>
@@ -425,35 +452,37 @@ export default function PricingSectionCards() {
                 <h4 className="text-xl font-medium">Startup</h4>
               </div>
               <Table>
-                {planFeatures.map((featureType) => (
-                  <React.Fragment key={featureType.type}>
-                    <TableRow className="bg-muted hover:bg-muted">
-                      <TableCell
-                        colSpan={2}
-                        className="w-10/12 text-primary font-bold"
-                      >
-                        {featureType.type}
-                      </TableCell>
-                    </TableRow>
-                    {featureType.features.map((feature) => (
-                      <TableRow
-                        className="text-muted-foreground"
-                        key={feature.name}
-                      >
-                        <TableCell className="w-11/12">
-                          {feature.name}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          {feature.startup ? (
-                            <CheckIcon className="h-5 w-5" />
-                          ) : (
-                            <MinusIcon className="h-5 w-5" />
-                          )}
+                <TableBody>
+                  {planFeatures.map((featureType) => (
+                    <React.Fragment key={featureType.type}>
+                      <TableRow className="bg-muted hover:bg-muted">
+                        <TableCell
+                          colSpan={2}
+                          className="w-10/12 text-primary font-bold"
+                        >
+                          {featureType.type}
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </React.Fragment>
-                ))}
+                      {featureType.features.map((feature) => (
+                        <TableRow
+                          className="text-muted-foreground"
+                          key={feature.name}
+                        >
+                          <TableCell className="w-11/12">
+                            {feature.name}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {feature.startup ? (
+                              <CheckIcon className="h-5 w-5" />
+                            ) : (
+                              <MinusIcon className="h-5 w-5" />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
               </Table>
             </section>
             <section>
@@ -461,35 +490,37 @@ export default function PricingSectionCards() {
                 <h4 className="text-xl font-medium">Team</h4>
               </div>
               <Table>
-                {planFeatures.map((featureType) => (
-                  <React.Fragment key={featureType.type}>
-                    <TableRow className="bg-muted hover:bg-muted">
-                      <TableCell
-                        colSpan={2}
-                        className="w-10/12 text-primary font-bold"
-                      >
-                        {featureType.type}
-                      </TableCell>
-                    </TableRow>
-                    {featureType.features.map((feature) => (
-                      <TableRow
-                        className="text-muted-foreground"
-                        key={feature.name}
-                      >
-                        <TableCell className="w-11/12">
-                          {feature.name}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          {feature.team ? (
-                            <CheckIcon className="h-5 w-5" />
-                          ) : (
-                            <MinusIcon className="h-5 w-5" />
-                          )}
+                <TableBody>
+                  {planFeatures.map((featureType) => (
+                    <React.Fragment key={featureType.type}>
+                      <TableRow className="bg-muted hover:bg-muted">
+                        <TableCell
+                          colSpan={2}
+                          className="w-10/12 text-primary font-bold"
+                        >
+                          {featureType.type}
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </React.Fragment>
-                ))}
+                      {featureType.features.map((feature) => (
+                        <TableRow
+                          className="text-muted-foreground"
+                          key={feature.name}
+                        >
+                          <TableCell className="w-11/12">
+                            {feature.name}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {feature.team ? (
+                              <CheckIcon className="h-5 w-5" />
+                            ) : (
+                              <MinusIcon className="h-5 w-5" />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
               </Table>
             </section>
             <section>
@@ -497,35 +528,37 @@ export default function PricingSectionCards() {
                 <h4 className="text-xl font-medium">Enterprise</h4>
               </div>
               <Table>
-                {planFeatures.map((featureType) => (
-                  <React.Fragment key={featureType.type}>
-                    <TableRow className="bg-muted hover:bg-muted">
-                      <TableCell
-                        colSpan={2}
-                        className="w-10/12 text-primary font-bold"
-                      >
-                        {featureType.type}
-                      </TableCell>
-                    </TableRow>
-                    {featureType.features.map((feature) => (
-                      <TableRow
-                        className="text-muted-foreground"
-                        key={feature.name}
-                      >
-                        <TableCell className="w-11/12">
-                          {feature.name}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          {feature.enterprise ? (
-                            <CheckIcon className="h-5 w-5" />
-                          ) : (
-                            <MinusIcon className="h-5 w-5" />
-                          )}
+                <TableBody>
+                  {planFeatures.map((featureType) => (
+                    <React.Fragment key={featureType.type}>
+                      <TableRow className="bg-muted hover:bg-muted">
+                        <TableCell
+                          colSpan={2}
+                          className="w-10/12 text-primary font-bold"
+                        >
+                          {featureType.type}
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </React.Fragment>
-                ))}
+                      {featureType.features.map((feature) => (
+                        <TableRow
+                          className="text-muted-foreground"
+                          key={feature.name}
+                        >
+                          <TableCell className="w-11/12">
+                            {feature.name}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {feature.enterprise ? (
+                              <CheckIcon className="h-5 w-5" />
+                            ) : (
+                              <MinusIcon className="h-5 w-5" />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
               </Table>
             </section>
           </div>

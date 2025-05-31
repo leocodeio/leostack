@@ -1,25 +1,9 @@
-import { authClient } from "../auth/auth-client";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../auth/db.server";
 
 import { WebhookSubscriptionCanceledPayload } from "@polar-sh/sdk/models/components/webhooksubscriptioncanceledpayload.js";
 import { WebhookOrderPaidPayload } from "@polar-sh/sdk/models/components/webhookorderpaidpayload.js";
 import { WebhookSubscriptionRevokedPayload } from "@polar-sh/sdk/models/components/webhooksubscriptionrevokedpayload.js";
 
-const prisma = new PrismaClient();
-
-/*
- * checkout
- *  products - the products to checkout
- *  slug - the slug of the product
- *  returns the checkout response
- */
-export const checkout = async () => {
-  const response = await authClient.checkout({
-    products: ["d6fd3bbd-8fae-4302-b4a6-240497c03626"],
-    slug: "benificial",
-  });
-  return response;
-};
 
 /**
  * Handles the 'order.paid' webhook event.
@@ -50,7 +34,7 @@ export const handleOrderPaid = async (payload: WebhookOrderPaidPayload) => {
 
         // If this is a subscription, create or update the subscription record
         if (subscription) {
-          await tx.subscription.upsert({
+          const subscriptionRecord = await tx.subscription.upsert({
             where: {
               polarCheckoutId: subscription.checkoutId!,
             },
@@ -62,10 +46,19 @@ export const handleOrderPaid = async (payload: WebhookOrderPaidPayload) => {
               startDate: new Date(subscription.startedAt!),
               endDate: new Date(subscription.endedAt!),
               polarCheckoutId: subscription.checkoutId!,
+              polarSubscriptionId: subscription.id,
             },
             update: {
               status: subscription.status,
               endDate: new Date(subscription.endedAt!),
+            },
+          });
+          await tx.user.update({
+            where: {
+              id: customer.externalId!,
+            },
+            data: {
+              subscriptionId: subscriptionRecord.id,
             },
           });
         }

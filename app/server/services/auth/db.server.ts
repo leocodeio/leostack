@@ -5,7 +5,7 @@ import {
   handleOrderPaid,
   handleSubscriptionCanceled,
   handleSubscriptionRevoked,
-} from "../payments/payment-client";
+} from "../payments/payment.server";
 
 /*
  * prisma
@@ -78,6 +78,12 @@ export const auth = betterAuth({
         type: "boolean",
         required: false,
         default: false,
+      },
+      subscriptionId: {
+        type: "string",
+        required: false,
+        default: null,
+        nullable: true,
       },
     },
   },

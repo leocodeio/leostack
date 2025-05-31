@@ -66,7 +66,7 @@ export default function Profile() {
         userName={
           user?.profileCompleted
             ? "You have verified your details"
-            : "Please enter your phone number and roleto use the product"
+            : "Please enter your phone number and role to access the product"
         }
         role={user?.role || ""}
       />
