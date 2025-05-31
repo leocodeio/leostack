@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/leocodeio/leostack/compare/v1.3.1...v1.4.0) (2025-05-31)
+
+
+### Features
+
+* **payments webhook sucess:** payments webhook sucess ([ace55f5](https://github.com/leocodeio/leostack/commit/ace55f58f5deaa049b156137527a3051e9d1cb14))
+
 ## [1.3.1](https://github.com/leocodeio/leostack/compare/v1.3.0...v1.3.1) (2025-05-31)
 
 # [1.3.0](https://github.com/leocodeio/leostack/compare/v1.2.0...v1.3.0) (2025-05-31)
