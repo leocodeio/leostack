@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/leocodeio/leostack/compare/v1.5.1...v1.6.0) (2025-06-03)
+
+
+### Features
+
+* **vercel changes:** vercel changes ([0513603](https://github.com/leocodeio/leostack/commit/05136037a0714651ff88dc6a5a4cfb412f4f694f))
+
 ## [1.5.1](https://github.com/leocodeio/leostack/compare/v1.5.0...v1.5.1) (2025-06-03)
 
 
