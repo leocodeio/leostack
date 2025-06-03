@@ -32,7 +32,6 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ["leostack.leocode.tech", "localhost"],
     hmr: {
       overlay: true,
     },
