@@ -59,10 +59,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
   //-------------------------- theme---------------------------------------
   const { getTheme } = await themeSessionResolver(request);
   const { getThemeColor } = await getThemeColorSession(request);
+  const ENV = {
+    NODE_ENV: process.env.NODE_ENV || "development",
+    apiUrl: process.env.API_URL || "http://localhost:5173",
+  };
   return {
     theme: getTheme(),
     themeColor: getThemeColor(),
     locale,
+    ENV,
   };
 }
 
@@ -111,6 +116,12 @@ export function App() {
         <Toaster />
         <Outlet />
         <ScrollRestoration />
+        <Scripts />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+          }}
+        />
         <Scripts />
       </body>
     </html>

@@ -6,11 +6,13 @@ import { flatRoutes } from "remix-flat-routes";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
+import { vercelPreset } from "@vercel/remix/vite";
 
 export default defineConfig({
   plugins: [
     remixCloudflareDevProxy(),
     remix({
+      presets: [vercelPreset()],
       routes: async (defineRoutes) => {
         return flatRoutes("routes", defineRoutes);
       },

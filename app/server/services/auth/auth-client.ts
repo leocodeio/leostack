@@ -10,8 +10,14 @@ import { polarClient } from "@polar-sh/better-auth";
  * auth client
  */
 export const authClient = createAuthClient({
-  baseURL: "http://localhost:5173",
-  trustedOrigins: ["http://localhost:5173"],
+  baseURL:
+    typeof window !== "undefined" && window.ENV
+      ? window.ENV.API_URL
+      : "https://leostack.leocode.tech",
+  trustedOrigins:
+    typeof window !== "undefined" && window.ENV
+      ? [window.ENV.API_URL]
+      : ["https://leostack.leocode.tech"],
   plugins: [polarClient()],
 });
 

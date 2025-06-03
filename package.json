@@ -37,6 +37,7 @@
     "@remix-run/react": "^2.15.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@vercel/remix": "^2.16.6",
     "better-auth": "^1.2.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
