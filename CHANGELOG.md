@@ -1,3 +1,10 @@
+## [1.6.6](https://github.com/leocodeio/leostack/compare/v1.6.5...v1.6.6) (2025-06-03)
+
+
+### Performance Improvements
+
+* **fixed ln vercel v5:** fixed ln vercel v5 ([3defa12](https://github.com/leocodeio/leostack/commit/3defa125398bb9a30f14348b9a5a579e9d0315a0))
+
 ## [1.6.5](https://github.com/leocodeio/leostack/compare/v1.6.4...v1.6.5) (2025-06-03)
 
 
