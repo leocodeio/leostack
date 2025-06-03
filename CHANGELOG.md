@@ -1,3 +1,10 @@
+## [1.6.5](https://github.com/leocodeio/leostack/compare/v1.6.4...v1.6.5) (2025-06-03)
+
+
+### Performance Improvements
+
+* **vercle try v4:** vercle try v4 ([ce27892](https://github.com/leocodeio/leostack/commit/ce27892611e3e0ea1b3777c65dc4e713a469b897))
+
 ## [1.6.4](https://github.com/leocodeio/leostack/compare/v1.6.3...v1.6.4) (2025-06-03)
 
 
