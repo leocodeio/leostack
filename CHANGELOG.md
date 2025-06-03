@@ -1,3 +1,10 @@
+## [1.6.11](https://github.com/leocodeio/leostack/compare/v1.6.10...v1.6.11) (2025-06-03)
+
+
+### Performance Improvements
+
+* **v11:** v11 ([4d60059](https://github.com/leocodeio/leostack/commit/4d60059016e147d0fe0f1d0e1bc4bd7d9347295b))
+
 ## [1.6.10](https://github.com/leocodeio/leostack/compare/v1.6.9...v1.6.10) (2025-06-03)
 
 
