@@ -2,11 +2,5 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "framework": "remix",
-  "installCommand": "pnpm install",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node"
-    }
-  ]
+  "installCommand": "pnpm install"
 }
