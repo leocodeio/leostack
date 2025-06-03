@@ -8,7 +8,7 @@
     "build": "pnpm prisma && remix vite:build",
     "dev": "remix vite:dev",
     "prisma:local": "npx prisma generate && npx @better-auth/cli generate --config app/server/services/auth/db.server.ts -y && npx prisma migrate dev",
-    "prisma": "npx prisma generate && npx @better-auth/cli generate --config app/server/services/auth/db.server.ts -y && npx prisma migrate dev",
+    "prisma": "npx prisma generate && npx prisma migrate dev",
     "typecheck": "tsc",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "prepare": "husky",
