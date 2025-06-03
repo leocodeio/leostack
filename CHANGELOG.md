@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/leocodeio/leostack/compare/v1.6.3...v1.6.4) (2025-06-03)
+
+
+### Bug Fixes
+
+* **verel try v3:** verel try v3 ([573db2a](https://github.com/leocodeio/leostack/commit/573db2a9a340a5f8ee2ffebd2b5a0237a55588f7))
+
 ## [1.6.3](https://github.com/leocodeio/leostack/compare/v1.6.2...v1.6.3) (2025-06-03)
 
 
