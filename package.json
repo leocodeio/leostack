@@ -7,6 +7,7 @@
     "postinstall": "pnpm prisma",
     "build": "pnpm prisma && remix vite:build",
     "dev": "remix vite:dev",
+    "prisma:local": "npx prisma generate && npx @better-auth/cli generate --config app/server/services/auth/db.server.ts -y && npx prisma migrate dev",
     "prisma": "npx prisma generate && npx @better-auth/cli generate --config app/server/services/auth/db.server.ts -y && npx prisma migrate dev",
     "typecheck": "tsc",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
@@ -101,5 +102,5 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "version": "1.6.7"
+  "version": "1.6.6"
 }
