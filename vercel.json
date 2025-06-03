@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx prisma generate && vite build",
+  "buildCommand": "pnpm prisma && pnpm build",
   "outputDirectory": "build",
   "framework": "remix",
   "regions": ["iad1"],
