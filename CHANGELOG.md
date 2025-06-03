@@ -1,3 +1,10 @@
+## [1.6.8](https://github.com/leocodeio/leostack/compare/v1.6.7...v1.6.8) (2025-06-03)
+
+
+### Performance Improvements
+
+* **vercel v8:** vercel v8 ([24041ed](https://github.com/leocodeio/leostack/commit/24041ed75a4254b79846647d2f934582c7c348bc))
+
 ## [1.6.7](https://github.com/leocodeio/leostack/compare/v1.6.6...v1.6.7) (2025-06-03)
 
 
