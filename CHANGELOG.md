@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/leocodeio/leostack/compare/v1.5.0...v1.5.1) (2025-06-03)
+
+
+### Performance Improvements
+
+* **vercel and update some pkgs:** vercel and update some pkgs ([f66226c](https://github.com/leocodeio/leostack/commit/f66226cd2508a2786dc1a9f9030c046bea1fbad6))
+
 # [1.5.0](https://github.com/leocodeio/leostack/compare/v1.4.0...v1.5.0) (2025-06-03)
 
 
