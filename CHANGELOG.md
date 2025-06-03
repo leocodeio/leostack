@@ -1,3 +1,10 @@
+## [1.6.7](https://github.com/leocodeio/leostack/compare/v1.6.6...v1.6.7) (2025-06-03)
+
+
+### Bug Fixes
+
+* **vercel pnpm prisma v7:** vercel pnpm prisma v7 ([ed6404d](https://github.com/leocodeio/leostack/commit/ed6404defa1561dd563bfe05988a9c73f8e5d054))
+
 ## [1.6.6](https://github.com/leocodeio/leostack/compare/v1.6.5...v1.6.6) (2025-06-03)
 
 
