@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/leocodeio/leostack/compare/v1.4.0...v1.5.0) (2025-06-03)
+
+
+### Features
+
+* **vercel, and dyn env window:** vercel, and dyn env window ([b56fa3e](https://github.com/leocodeio/leostack/commit/b56fa3e4188f07a03554b1c3f546e3822d3d205d))
+
 # [1.4.0](https://github.com/leocodeio/leostack/compare/v1.3.1...v1.4.0) (2025-05-31)
 
 
