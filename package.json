@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "npx prisma generate",
-    "build": "remix vite:build",
+    "build": "npx prisma generate && remix vite:build",
     "dev": "remix vite:dev",
     "prisma": "npx prisma generate && npx @better-auth/cli generate --config app/server/services/auth/db.server.ts -y && npx prisma migrate dev",
     "typecheck": "tsc",
