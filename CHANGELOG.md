@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/leocodeio/leostack/compare/v1.6.2...v1.6.3) (2025-06-03)
+
+
+### Performance Improvements
+
+* **trying viteconfig:** trying viteconfig ([d402287](https://github.com/leocodeio/leostack/commit/d402287019f3b76b514fcfe339e791dbbc6de18a))
+
 ## [1.6.2](https://github.com/leocodeio/leostack/compare/v1.6.1...v1.6.2) (2025-06-03)
 
 
