@@ -1,7 +1,4 @@
-import {
-  vitePlugin as remix,
-  cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
-} from "@remix-run/dev";
+import { vitePlugin as remix } from "@remix-run/dev";
 import { flatRoutes } from "remix-flat-routes";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -10,7 +7,6 @@ import { vercelPreset } from "@vercel/remix/vite";
 
 export default defineConfig({
   plugins: [
-    remixCloudflareDevProxy(),
     remix({
       presets: [vercelPreset()],
       routes: async (defineRoutes) => {
@@ -26,6 +22,9 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  build: {
+    sourcemap: true,
+  },
   /* shadcn */
   resolve: {
     alias: {
