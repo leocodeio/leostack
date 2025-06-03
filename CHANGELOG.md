@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/leocodeio/leostack/compare/v1.6.1...v1.6.2) (2025-06-03)
+
+
+### Performance Improvements
+
+* **vercel config changes:** vercel config changes ([6ff78b6](https://github.com/leocodeio/leostack/commit/6ff78b63a8172dfa7e20bba9971338df7d536e18))
+
 ## [1.6.1](https://github.com/leocodeio/leostack/compare/v1.6.0...v1.6.1) (2025-06-03)
 
 
