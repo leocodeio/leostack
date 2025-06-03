@@ -1,3 +1,10 @@
+## [1.6.12](https://github.com/leocodeio/leostack/compare/v1.6.11...v1.6.12) (2025-06-03)
+
+
+### Bug Fixes
+
+* **polar dep v11:** polar dep v11 ([45374b5](https://github.com/leocodeio/leostack/commit/45374b54a96a801f9ce73a94a4582abc1d4ecc94))
+
 ## [1.6.11](https://github.com/leocodeio/leostack/compare/v1.6.10...v1.6.11) (2025-06-03)
 
 
