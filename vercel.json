@@ -1,9 +1,0 @@
-{
-  "buildCommand": "npx prisma generate && remix vite:build",
-  "outputDirectory": "build",
-  "framework": "remix",
-  "regions": ["iad1"],
-  "env": {
-    "PRISMA_GENERATE_DATAPROXY": "true"
-  }
-}
