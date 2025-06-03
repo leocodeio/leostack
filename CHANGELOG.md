@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/leocodeio/leostack/compare/v1.6.0...v1.6.1) (2025-06-03)
+
+
+### Bug Fixes
+
+* **prisma:** prisma ([2b408cd](https://github.com/leocodeio/leostack/commit/2b408cd29b4e76f82c1adfa98b7eb5f5e1954fed))
+
 # [1.6.0](https://github.com/leocodeio/leostack/compare/v1.5.1...v1.6.0) (2025-06-03)
 
 
