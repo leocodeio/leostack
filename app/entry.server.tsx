@@ -15,7 +15,7 @@ import i18next from "./lib/i18next.server";
 import { createInstance } from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { getI18nSession } from "./server/services/session/sessions.server";
-import { getLocaleResources } from "./functions/i18n.load-locales";
+import { getOptions } from "./server/utils/locales";
 
 export default async function handleRequest(
   request: Request,
@@ -34,20 +34,8 @@ export default async function handleRequest(
   let ns = i18next.getRouteNamespaces(remixContext);
 
   // Get all locale resources dynamically
-  const resources = await getLocaleResources("public/locales");
 
-  await instance
-    .use(initReactI18next)
-    .use(Backend)
-    .init({
-      ...i18n,
-      lng,
-      ns,
-      backend: {
-        loadPath: "/locales/{{lng}}/{{ns}}.json",
-      },
-      resources,
-    });
+  await instance.use(initReactI18next).use(Backend).init(getOptions());
 
   const controller = new AbortController();
   let didError = false;

@@ -6,23 +6,14 @@ import i18next from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import Backend from "i18next-http-backend";
+import { getOptions } from "./server/utils/locales";
 
 async function hydrate() {
   await i18next
     .use(initReactI18next)
     .use(LanguageDetector)
     .use(Backend)
-    .init({
-      ...i18n,
-      ns: ["common"],
-      defaultNS: "common",
-      fallbackNS: "common",
-      backend: { loadPath: "/locales/{{lng}}/{{ns}}.json" },
-      detection: {
-        order: ["htmlTag"],
-        caches: [],
-      },
-    });
+    .init(getOptions());
 
   startTransition(() => {
     hydrateRoot(
