@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/leocodeio/leostack/compare/v1.6.13...v1.7.0) (2025-06-06)
+
+
+### Features
+
+* **"test" analytics:** "test" analytics ([04356d7](https://github.com/leocodeio/leostack/commit/04356d72cc78e34209180be33311a1d86bda8486))
+
 ## [1.6.13](https://github.com/leocodeio/leostack/compare/v1.6.12...v1.6.13) (2025-06-06)
 
 ## [1.6.12](https://github.com/leocodeio/leostack/compare/v1.6.11...v1.6.12) (2025-06-03)
