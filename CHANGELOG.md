@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/leocodeio/leostack/compare/v1.7.0...v1.8.0) (2025-06-06)
+
+
+### Features
+
+* **hit dep:** hit dep ([bc73383](https://github.com/leocodeio/leostack/commit/bc73383b8238cc5b1eb23cb216d6ee33bc938b34))
+
 # [1.7.0](https://github.com/leocodeio/leostack/compare/v1.6.13...v1.7.0) (2025-06-06)
 
 
