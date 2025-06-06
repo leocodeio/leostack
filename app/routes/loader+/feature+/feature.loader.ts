@@ -8,8 +8,5 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<any> {
   if (!session) {
     return redirect("/auth/signin");
   }
-  if (!session.user.profileCompleted) {
-    return redirect("/feature/home/profile");
-  }
   return { user: session.user };
 }

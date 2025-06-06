@@ -9,8 +9,5 @@ export async function loader({
   if (!session) {
     return redirect("/auth/signin");
   }
-  if (!session.user.profileCompleted) {
-    return redirect("/feature/home/profile");
-  }
   return session.user as User;
 }
