@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/leocodeio/leostack/compare/v1.9.0...v1.10.0) (2025-06-07)
+
+
+### Features
+
+* **adding ci impl:** adding ci impl ([d5fc0f1](https://github.com/leocodeio/leostack/commit/d5fc0f1adb524d64d6703c0e8932713797ac15ba))
+
 # [1.9.0](https://github.com/leocodeio/leostack/compare/v1.8.0...v1.9.0) (2025-06-07)
 
 
