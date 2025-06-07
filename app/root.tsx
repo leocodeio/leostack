@@ -116,7 +116,8 @@ export function App() {
         <Toaster />
         <Outlet />
         <ScrollRestoration />
-        <script async src="https://scripts.simpleanalyticscdn.com/latest.js" />
+        {/* metrics */}
+        {/* <script async src="https://scripts.simpleanalyticscdn.com/latest.js" /> */}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
@@ -182,7 +183,6 @@ export function ErrorBoundarySkeleton({
             503: () => <MaintenanceError />,
           }}
         />
-        <script async src="https://scripts.simpleanalyticscdn.com/latest.js" />
         <ScrollRestoration />
         <Scripts />
       </body>

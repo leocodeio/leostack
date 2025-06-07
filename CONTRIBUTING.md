@@ -10,3 +10,22 @@ This project is open source and we welcome contributions. Please feel free to su
 4. Run `pnpm run prisma`
 5. Run `pnpm run dev`
 6. Open the browser and go to `http://localhost:5173`
+
+## Understanding the codebase
+
+The codebase is structured to follow best practices and maintainability. Here are some key directories and files:
+
+- `app/`: Contains the main application code.
+- `prisma/`: Contains the Prisma schema and migration files.
+- `public/`: Contains static assets.
+
+```bash
+app/
+    context/
+    lib/
+    hooks/
+    routes/
+    server/
+    types/
+    utils/
+```
