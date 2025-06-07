@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/leocodeio/leostack/compare/v1.8.0...v1.9.0) (2025-06-07)
+
+
+### Features
+
+* **trying to optimize for fast queries:** trying to optimize for fast queries ([2ccc29e](https://github.com/leocodeio/leostack/commit/2ccc29e209d5c95079c2fce0441282df6d15d922))
+
 # [1.8.0](https://github.com/leocodeio/leostack/compare/v1.7.0...v1.8.0) (2025-06-06)
 
 
