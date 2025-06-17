@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/leocodeio/leostack/compare/v1.10.0...v1.11.0) (2025-06-17)
+
+
+### Features
+
+* **Added docker file:** Added docker file ([f2db60c](https://github.com/leocodeio/leostack/commit/f2db60c168dd9f9f12fab7667168201fb71c5f73))
+
 # [1.10.0](https://github.com/leocodeio/leostack/compare/v1.9.0...v1.10.0) (2025-06-07)
 
 
