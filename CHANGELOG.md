@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/leocodeio/leostack/compare/v1.11.0...v1.12.0) (2025-06-17)
+
+
+### Features
+
+* **Added workflow:** Added workflow ([da27945](https://github.com/leocodeio/leostack/commit/da279450065f73a892d5c1af7582163d1290cac3))
+
 # [1.11.0](https://github.com/leocodeio/leostack/compare/v1.10.0...v1.11.0) (2025-06-17)
 
 
