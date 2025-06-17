@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/leocodeio/leostack/compare/v1.12.0...v1.12.1) (2025-06-17)
+
+
+### Bug Fixes
+
+* **test for action:** test for action ([d0e4f17](https://github.com/leocodeio/leostack/commit/d0e4f17095e807938a71e7ca44a8fba4c8a8cb5f))
+
 # [1.12.0](https://github.com/leocodeio/leostack/compare/v1.11.0...v1.12.0) (2025-06-17)
 
 
