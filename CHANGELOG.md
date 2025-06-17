@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/leocodeio/leostack/compare/v1.12.1...v1.12.2) (2025-06-17)
+
+
+### Performance Improvements
+
+* **test for image:** test for image ([40ddd4e](https://github.com/leocodeio/leostack/commit/40ddd4e1c066dd397e9f4c62d4399095bf2ef16a))
+
 ## [1.12.1](https://github.com/leocodeio/leostack/compare/v1.12.0...v1.12.1) (2025-06-17)
 
 
