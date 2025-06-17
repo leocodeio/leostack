@@ -1,54 +1,72 @@
-# base node image
-FROM node:20-bullseye-slim as base
+# Base node image for all stages
+FROM node:20-bullseye-slim AS base
 
-# set for base and all layer that inherit from it
-ENV NODE_ENV production
+# Set environment to production for base and inheriting layers
+ENV NODE_ENV=production
 
-# Install openssl for Prisma
-RUN apt-get update && apt-get install -y openssl
+# Install openssl for Prisma's usage during runtime
+RUN apt-get update && apt-get install -y openssl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*  # Clean up to reduce image size
 
-# Install all node_modules, including dev dependencies
-FROM base as deps
+# Install pnpm globally
+RUN npm install -g pnpm
 
+# Install dependencies including devDependencies in a separate stage
+FROM base AS deps
+
+# Set working directory inside the container
 WORKDIR /myapp
 
-ADD package.json ./
-RUN npm install --include=dev
+# Copy only manifest and lockfile to leverage Docker cache
+COPY package.json pnpm-lock.yaml ./
 
-# Setup production node_modules
-FROM base as production-deps
+# Install all dependencies (including devDependencies) without modifying lockfile
+RUN pnpm install --frozen-lockfile
 
+# Build the application
+FROM base AS build
+
+# work directory
 WORKDIR /myapp
 
-COPY --from=deps /myapp/node_modules /myapp/node_modules
-ADD package.json ./
-RUN npm prune --omit=dev
+# Copy full dependencies from deps stage
+COPY --from=deps /myapp/node_modules ./node_modules
 
-# Build the app
-FROM base as build
-
-WORKDIR /myapp
-
-COPY --from=deps /myapp/node_modules /myapp/node_modules
-
-ADD prisma .
+# Copy Prisma files and run any required Prisma commands (like generate or migrate)
+COPY prisma ./prisma
 RUN npx prisma generate
 
-ADD . .
-RUN npm run build
+# Copy application source code
+COPY . .
 
-# Finally, build the production image with minimal footprint
+# Build the app (assumes a build script exists in package.json)
+RUN pnpm run build
+
+# Final minimal production image
 FROM base
 
 WORKDIR /myapp
 
-COPY --from=production-deps /myapp/node_modules /myapp/node_modules
-COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
+# Copy Prisma engine files used in production
+COPY --from=build /myapp/node_modules ./node_modules
 
-COPY --from=build /myapp/build /myapp/build
-COPY --from=build /myapp/public /myapp/public
-COPY --from=build /myapp/package.json /myapp/package.json
-COPY --from=build /myapp/start.sh /myapp/start.sh
-COPY --from=build /myapp/prisma /myapp/prisma
+# Copy the built output and static files
+COPY --from=build /myapp/build ./build
+COPY --from=build /myapp/public ./public
 
-ENTRYPOINT [ "./start.sh" ]
+# Copy essential app files
+COPY --from=build /myapp/package.json ./package.json
+COPY --from=build /myapp/start.sh ./start.sh
+COPY --from=build /myapp/prisma ./prisma
+
+# Make the start script executable
+RUN chmod +x ./start.sh
+
+# Use non-root user for security
+USER node
+
+# Expose the required port
+EXPOSE 3000
+
+# Start the application
+ENTRYPOINT ["./start.sh"]
